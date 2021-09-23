@@ -1,9 +1,9 @@
-const config = require('config');
+const mongoURI = require('../config/default')
 const mongoose = require('mongoose');
 
 function connectDB(){
     mongoose.connect(
-        config.get('mongoURI'),
+        mongoURI,
         {useNewUrlParser: true, useUnifiedTopology:true})
         .then(()=>console.log('Connected to MongoDB...'))
         .catch((err)=>{
