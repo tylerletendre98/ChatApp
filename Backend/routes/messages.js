@@ -24,4 +24,15 @@ router.get('/messages', async (req,res)=>{
     }
 })
 
+router.get('/:id', async (req,res)=>{
+    try{
+        const message = await Message.findById(req.params.id);
+
+        if(!message) return res.status(400).send(`The message with the ID ${req.params.id} does not exist.`);
+
+        return res.send(message);
+    }catch(ex){
+        return res.status(500).send(`Internal Server Error ${ex}`);
+    }
+})
 module.exports = router
