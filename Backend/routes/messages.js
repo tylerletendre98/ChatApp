@@ -5,7 +5,7 @@ const router = express.Router();
 router.post('/message', async (req,res)=>{
     try{
         const message = new Message({
-            message:"this is my first message"
+            message: req.body.message
         });
         await message.save()
 
@@ -14,5 +14,14 @@ router.post('/message', async (req,res)=>{
         return res.status(500).send(`Internal Server Error ${ex}`);
     }
 });
+
+router.get('/messages', async (req,res)=>{
+    try{
+        const messages = await Message.find();
+        return res.send(messages);
+    }catch(ex){
+        return res.status(500).send(`Internal Server Error ${ex}`);
+    }
+})
 
 module.exports = router
